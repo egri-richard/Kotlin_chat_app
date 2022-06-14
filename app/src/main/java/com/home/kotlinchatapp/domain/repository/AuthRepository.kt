@@ -12,5 +12,5 @@ interface AuthRepository {
 
     suspend fun signOut(): Flow<AuthResponse<Boolean>>
 
-    fun getAuthState(): Flow<Boolean>
+    //fun getAuthState(): Flow<Boolean>
 }
