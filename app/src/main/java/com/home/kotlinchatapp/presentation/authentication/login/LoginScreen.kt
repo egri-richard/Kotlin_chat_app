@@ -1,4 +1,4 @@
-package com.home.kotlinchatapp.presentation.login
+package com.home.kotlinchatapp.presentation.authentication.login
 
 import androidx.compose.runtime.Composable
 
