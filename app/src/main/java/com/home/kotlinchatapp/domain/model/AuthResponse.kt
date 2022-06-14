@@ -1,13 +1,13 @@
 package com.home.kotlinchatapp.domain.model
 
-sealed class Response<out T> {
-    object Loading: Response<Nothing>()
+sealed class AuthResponse<out T> {
+    object Loading: AuthResponse<Nothing>()
 
     data class Success<out T>(
         val data: T
-    ): Response<T>()
+    ): AuthResponse<T>()
 
     data class Error(
         val message: String
-    ): Response<Nothing>()
+    ): AuthResponse<Nothing>()
 }

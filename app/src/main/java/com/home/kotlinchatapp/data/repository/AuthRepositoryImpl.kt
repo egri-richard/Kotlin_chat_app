@@ -1,14 +1,14 @@
 package com.home.kotlinchatapp.data.repository
 
 import com.google.firebase.auth.FirebaseAuth
-import com.home.kotlinchatapp.domain.model.Response
+import com.home.kotlinchatapp.domain.model.AuthResponse
 import com.home.kotlinchatapp.domain.repository.AuthRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.tasks.await
-import java.lang.Exception
 import javax.inject.Inject
 import javax.inject.Singleton
+import kotlin.Exception
 
 @Singleton
 class AuthRepositoryImpl @Inject constructor(
@@ -16,17 +16,21 @@ class AuthRepositoryImpl @Inject constructor(
 ) : AuthRepository {
     override fun isAuthenticated() = auth.currentUser != null
 
-    override suspend fun signInAnonymously() = flow {
+    override suspend fun signWithEmail(email: String, password: String) = flow {
         try {
-            emit(Response.Loading)
-            auth.signInAnonymously().await()
-            emit(Response.Success(true))
+            emit(AuthResponse.Loading)
+            auth.signInWithEmailAndPassword(email, password).await()
+            emit(AuthResponse.Success(true))
         } catch (e: Exception) {
-            emit(Response.Error(e.message ?: e.toString()))
+            emit(AuthResponse.Error(e.message.toString()))
         }
     }
 
-    override suspend fun signOut(): Flow<Response<Boolean>> {
+    override suspend fun registerWithEmail(email: String, password: String): Flow<AuthResponse<Boolean>> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun signOut(): Flow<AuthResponse<Boolean>> {
         TODO("Not yet implemented")
     }
 
